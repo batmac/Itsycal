@@ -11,6 +11,8 @@
 #import "MoVFLHelper.h"
 #import "Themer.h"
 
+@import SwiftyChrono;
+
 // These values map to _alertAllDayStrings and _alertRegularStrings.
 const NSInteger kAlertAllDayNumOffsets  = 5;
 const NSInteger kAlertRegularNumOffsets = 10;
@@ -36,11 +38,13 @@ const NSTimeInterval kAlertRegularRelativeOffsets[kAlertRegularNumOffsets] = {
 
 @implementation EventViewController
 {
-    NSTextField *_title, *_location, *_repEndLabel;
+    NSTextField *_natural, *_title, *_location, *_repEndLabel;
     NSButton *_allDayCheckbox, *_saveButton;
     NSDatePicker *_startDate, *_endDate, *_repEndDate;
     NSPopUpButton *_repPopup, *_repEndPopup, *_alertPopup, *_calPopup;
     NSArray<NSString *> *_alertAllDayStrings, *_alertRegularStrings;
+    
+    Chrono *chrono;
 }
 
 - (void)loadView
@@ -94,10 +98,14 @@ const NSTimeInterval kAlertRegularRelativeOffsets[kAlertRegularNumOffsets] = {
         return btn;
     };
     
+    _natural = txt(NSLocalizedString(@"Natural date", @""), YES);
+    _natural.delegate = self;
     // Title and location text fields
     _title = txt(NSLocalizedString(@"New Event", @""), YES);
     _title.delegate = self;
     _location = txt(NSLocalizedString(@"Add Location", @""), YES);
+    
+    chrono = [Chrono casual];
     
     // Login checkbox
     _allDayCheckbox = [NSButton new];
@@ -172,11 +180,12 @@ const NSTimeInterval kAlertRegularRelativeOffsets[kAlertRegularNumOffsets] = {
     _saveButton.enabled = NO; // we'll enable when the form is valid.
     NSButton *cancelButton = btn(NSLocalizedString(@"Cancel", @""), self, @selector(cancelOperation:));
     
-    MoVFLHelper *vfl = [[MoVFLHelper alloc] initWithSuperview:v metrics:nil views:NSDictionaryOfVariableBindings(_title, _location, _allDayCheckbox, allDayLabel, startsLabel, endsLabel, _startDate, _endDate, repLabel, alertLabel, _repPopup, _repEndLabel, _repEndPopup, _repEndDate, _alertPopup, _calPopup, cancelButton, _saveButton)];
+    MoVFLHelper *vfl = [[MoVFLHelper alloc] initWithSuperview:v metrics:nil views:NSDictionaryOfVariableBindings(_natural, _title, _location, _allDayCheckbox, allDayLabel, startsLabel, endsLabel, _startDate, _endDate, repLabel, alertLabel, _repPopup, _repEndLabel, _repEndPopup, _repEndDate, _alertPopup, _calPopup, cancelButton, _saveButton)];
 
-    [vfl :@"V:|-[_title]-[_location]-15-[_allDayCheckbox]"];
+    [vfl :@"V:|-[_natural]-[_title]-[_location]-15-[_allDayCheckbox]"];
     [vfl :@"V:[_allDayCheckbox]-[_startDate]-[_endDate]-[_repPopup]-[_repEndPopup]-20-[_alertPopup]-20-[_calPopup]" :NSLayoutFormatAlignAllLeading];
     [vfl :@"V:[_calPopup]-20-[_saveButton]-|"];
+    [vfl :@"H:|-[_natural(>=200)]-|"];
     [vfl :@"H:|-[_title(>=200)]-|"];
     [vfl :@"H:|-[_location]-|"];
     [vfl :@"H:|-[allDayLabel]-[_allDayCheckbox]-|" :NSLayoutFormatAlignAllBaseline];
@@ -223,6 +232,7 @@ const NSTimeInterval kAlertRegularRelativeOffsets[kAlertRegularNumOffsets] = {
     initialEnd = [self.cal dateByAddingUnit:NSCalendarUnitHour value:1 toDate:initialStart options:0];
     
     // Initial values for form fields.
+    _natural.stringValue = @"";
     _title.stringValue = @"";
     _location.stringValue = @"";
     _allDayCheckbox.state = NSControlStateValueOff;
@@ -318,6 +328,19 @@ const NSTimeInterval kAlertRegularRelativeOffsets[kAlertRegularNumOffsets] = {
     // Enable the Save button if the title is non-whitespace.
     NSString *trimmedTitle = [_title.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     _saveButton.enabled = ![trimmedTitle isEqualToString:@""];
+    
+    NSDate * d = [chrono parseDateWithText:_natural.stringValue refDate: [NSDate date]];
+    if (d != nil) {
+        _startDate.dateValue = d;
+        [self startDateChanged:nil];
+    }
+    
+#ifdef DEBUG
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd 'at' HH:mm";
+    NSString *dateString = [dateFormatter stringFromDate:d];
+    NSLog(@"%@",dateString);
+#endif
 }
 
 - (void)allDayClicked:(NSButton *)allDayCheckbox
