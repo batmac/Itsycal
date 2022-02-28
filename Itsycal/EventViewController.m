@@ -41,6 +41,7 @@ const NSTimeInterval kAlertRegularRelativeOffsets[kAlertRegularNumOffsets] = {
     NSTextField *_natural, *_title, *_location, *_repEndLabel;
     NSButton *_allDayCheckbox, *_saveButton;
     NSDatePicker *_startDate, *_endDate, *_repEndDate;
+    NSDate *initialStart, *initialEnd, *today;
     NSPopUpButton *_repPopup, *_repEndPopup, *_alertPopup, *_calPopup;
     NSArray<NSString *> *_alertAllDayStrings, *_alertRegularStrings;
     
@@ -104,9 +105,7 @@ const NSTimeInterval kAlertRegularRelativeOffsets[kAlertRegularNumOffsets] = {
     _title = txt(NSLocalizedString(@"New Event", @""), YES);
     _title.delegate = self;
     _location = txt(NSLocalizedString(@"Add Location", @""), YES);
-    
-    chrono = [Chrono casual];
-    
+        
     // Login checkbox
     _allDayCheckbox = [NSButton new];
     _allDayCheckbox.title = @"";
@@ -215,19 +214,21 @@ const NSTimeInterval kAlertRegularRelativeOffsets[kAlertRegularNumOffsets] = {
     [super viewWillAppear];
 
     self.view.window.defaultButtonCell = _saveButton.cell;
-    
+
+    today = [NSDate new];
     // If self.calSelectedDate is today, the initialStart is set to
     // the next whole hour. Otherwise, 8am of self.calselectedDate.
     // InitialEnd is one hour after initialStart.
-    NSDate *initialStart, *initialEnd, *today = [NSDate new];
     if ([self.cal isDate:self.calSelectedDate inSameDayAsDate:today]) {
         NSInteger hour;
         [self.cal getHour:&hour minute:NULL second:NULL nanosecond:NULL fromDate:today];
         hour = (hour == 23) ? 0 : hour+1;
         initialStart = [self.cal nextDateAfterDate:today matchingUnit:NSCalendarUnitHour value:hour options:NSCalendarMatchNextTimePreservingSmallerUnits];
+        chrono = [Chrono casual];
     }
     else {
         initialStart = [self.cal dateBySettingHour:8 minute:0 second:0 ofDate:self.calSelectedDate options:0];
+        chrono = [Chrono strict];
     }
     initialEnd = [self.cal dateByAddingUnit:NSCalendarUnitHour value:1 toDate:initialStart options:0];
     
@@ -329,7 +330,7 @@ const NSTimeInterval kAlertRegularRelativeOffsets[kAlertRegularNumOffsets] = {
     NSString *trimmedTitle = [_title.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     _saveButton.enabled = ![trimmedTitle isEqualToString:@""];
     
-    NSDate * d = [chrono parseDateWithText:_natural.stringValue refDate: [NSDate date]];
+    NSDate * d = [chrono parseDateWithText:_natural.stringValue refDate: initialStart];
     if (d != nil) {
         _startDate.dateValue = d;
         [self startDateChanged:nil];
