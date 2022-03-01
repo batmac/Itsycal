@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4D6F542F27CE56D80066F1ED /* SwiftyChrono in Frameworks */ = {isa = PBXBuildFile; productRef = 4D6F542E27CE56D80066F1ED /* SwiftyChrono */; };
+		4D99CB2727CE945E0029C3AF /* SwiftyChrono in Frameworks */ = {isa = PBXBuildFile; productRef = 4D99CB2627CE945E0029C3AF /* SwiftyChrono */; };
 		920D6D51266A83AC00498E19 /* MoLoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 920D6D4F266A83AC00498E19 /* MoLoginItem.m */; };
 		921181C722E0192A00591FDA /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 921181C622E0192A00591FDA /* Colors.xcassets */; };
 		9215AD4C1E3AECA700317FAE /* MoVFLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9215AD4B1E3AECA700317FAE /* MoVFLHelper.m */; };
@@ -100,7 +100,7 @@
 		922D9B251DC7A1C90050AB2F /* MoUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoUtils.m; sourceTree = "<group>"; };
 		923E78DC1D385CF60012979B /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = _frameworks/MASShortcut.framework; sourceTree = "<group>"; };
 		923E78DD1D385CF60012979B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = _frameworks/Sparkle.framework; sourceTree = "<group>"; };
-		9242A55C1A82A136005AA4B3 /* Itsycal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Itsycal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9242A55C1A82A136005AA4B3 /* Itsycal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Itsycal.app; path = /Users/bat/repos/Itsycal/build/Debug/Itsycal.app; sourceTree = "<absolute>"; };
 		9242A5601A82A136005AA4B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9242A5611A82A136005AA4B3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9242A5621A82A136005AA4B3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -151,20 +151,13 @@
 			files = (
 				923E78E21D385FD80012979B /* MASShortcut.framework in Frameworks */,
 				923E78E31D385FDB0012979B /* Sparkle.framework in Frameworks */,
-				4D6F542F27CE56D80066F1ED /* SwiftyChrono in Frameworks */,
+				4D99CB2727CE945E0029C3AF /* SwiftyChrono in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4D6F542D27CE56D80066F1ED /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		9228A5A5210509910076BFFC /* Prefs */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,17 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				9242A55E1A82A136005AA4B3 /* Itsycal */,
-				9242A55D1A82A136005AA4B3 /* Products */,
-				4D6F542D27CE56D80066F1ED /* Frameworks */,
 			);
-			sourceTree = "<group>";
-		};
-		9242A55D1A82A136005AA4B3 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9242A55C1A82A136005AA4B3 /* Itsycal.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		9242A55E1A82A136005AA4B3 /* Itsycal */ = {
@@ -314,7 +297,7 @@
 			);
 			name = Itsycal;
 			packageProductDependencies = (
-				4D6F542E27CE56D80066F1ED /* SwiftyChrono */,
+				4D99CB2627CE945E0029C3AF /* SwiftyChrono */,
 			);
 			productName = Moon;
 			productReference = 9242A55C1A82A136005AA4B3 /* Itsycal.app */;
@@ -354,9 +337,9 @@
 			);
 			mainGroup = 9242A5531A82A136005AA4B3;
 			packageReferences = (
-				4D3D406B27CE561200E410D6 /* XCRemoteSwiftPackageReference "SwiftyChrono" */,
+				4D015D6527CE93D5005C74B9 /* XCRemoteSwiftPackageReference "SwiftyChrono" */,
 			);
-			productRefGroup = 9242A55D1A82A136005AA4B3 /* Products */;
+			productRefGroup = 9242A5531A82A136005AA4B3;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -664,7 +647,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4D3D406B27CE561200E410D6 /* XCRemoteSwiftPackageReference "SwiftyChrono" */ = {
+		4D015D6527CE93D5005C74B9 /* XCRemoteSwiftPackageReference "SwiftyChrono" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/batmac/SwiftyChrono";
 			requirement = {
@@ -675,9 +658,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4D6F542E27CE56D80066F1ED /* SwiftyChrono */ = {
+		4D99CB2627CE945E0029C3AF /* SwiftyChrono */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4D3D406B27CE561200E410D6 /* XCRemoteSwiftPackageReference "SwiftyChrono" */;
+			package = 4D015D6527CE93D5005C74B9 /* XCRemoteSwiftPackageReference "SwiftyChrono" */;
 			productName = SwiftyChrono;
 		};
 /* End XCSwiftPackageProductDependency section */
