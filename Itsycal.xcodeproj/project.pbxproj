@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D6F542F27CE56D80066F1ED /* SwiftyChrono in Frameworks */ = {isa = PBXBuildFile; productRef = 4D6F542E27CE56D80066F1ED /* SwiftyChrono */; };
 		920D6D51266A83AC00498E19 /* MoLoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 920D6D4F266A83AC00498E19 /* MoLoginItem.m */; };
 		921181C722E0192A00591FDA /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 921181C622E0192A00591FDA /* Colors.xcassets */; };
 		9215AD4C1E3AECA700317FAE /* MoVFLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9215AD4B1E3AECA700317FAE /* MoVFLHelper.m */; };
@@ -150,12 +151,20 @@
 			files = (
 				923E78E21D385FD80012979B /* MASShortcut.framework in Frameworks */,
 				923E78E31D385FDB0012979B /* Sparkle.framework in Frameworks */,
+				4D6F542F27CE56D80066F1ED /* SwiftyChrono in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D6F542D27CE56D80066F1ED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9228A5A5210509910076BFFC /* Prefs */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +194,7 @@
 			children = (
 				9242A55E1A82A136005AA4B3 /* Itsycal */,
 				9242A55D1A82A136005AA4B3 /* Products */,
+				4D6F542D27CE56D80066F1ED /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -303,6 +313,9 @@
 			dependencies = (
 			);
 			name = Itsycal;
+			packageProductDependencies = (
+				4D6F542E27CE56D80066F1ED /* SwiftyChrono */,
+			);
 			productName = Moon;
 			productReference = 9242A55C1A82A136005AA4B3 /* Itsycal.app */;
 			productType = "com.apple.product-type.application";
@@ -314,12 +327,10 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1250;
-				ORGANIZATIONNAME = mowglii.com;
+				ORGANIZATIONNAME = fr.sbz;
 				TargetAttributes = {
 					9242A55B1A82A136005AA4B3 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = HFT3T55WND;
-						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.HardenedRuntime = {
 								enabled = 1;
@@ -342,6 +353,9 @@
 				"zh-Hans",
 			);
 			mainGroup = 9242A5531A82A136005AA4B3;
+			packageReferences = (
+				4D3D406B27CE561200E410D6 /* XCRemoteSwiftPackageReference "SwiftyChrono" */,
+			);
 			productRefGroup = 9242A55D1A82A136005AA4B3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -574,21 +588,26 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Itsycal/Itsycal.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2150;
-				DEVELOPMENT_TEAM = HFT3T55WND;
+				DEVELOPMENT_TEAM = QXY83T2PE8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Itsycal/_frameworks",
 				);
 				INFOPLIST_FILE = Itsycal/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MARKETING_VERSION = 0.13.1;
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mowglii.$(PRODUCT_NAME:rfc1034identifier)App";
+				PRODUCT_BUNDLE_IDENTIFIER = fr.sbz.ItsycalApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -598,21 +617,26 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Itsycal/Itsycal.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2150;
-				DEVELOPMENT_TEAM = HFT3T55WND;
+				DEVELOPMENT_TEAM = QXY83T2PE8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Itsycal/_frameworks",
 				);
 				INFOPLIST_FILE = Itsycal/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MARKETING_VERSION = 0.13.1;
 				OTHER_LDFLAGS = "-Wl,-rpath,@loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mowglii.$(PRODUCT_NAME:rfc1034identifier)App";
+				PRODUCT_BUNDLE_IDENTIFIER = fr.sbz.ItsycalApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
@@ -638,6 +662,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4D3D406B27CE561200E410D6 /* XCRemoteSwiftPackageReference "SwiftyChrono" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/batmac/SwiftyChrono";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4D6F542E27CE56D80066F1ED /* SwiftyChrono */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4D3D406B27CE561200E410D6 /* XCRemoteSwiftPackageReference "SwiftyChrono" */;
+			productName = SwiftyChrono;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9242A5541A82A136005AA4B3 /* Project object */;
 }

@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SwiftyChrono",
+        "repositoryURL": "https://github.com/batmac/SwiftyChrono",
+        "state": {
+          "branch": "master",
+          "revision": "155fc8052fdab519e9045d5392a7a1e129653da1",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
