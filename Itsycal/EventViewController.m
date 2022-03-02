@@ -330,17 +330,21 @@ const NSTimeInterval kAlertRegularRelativeOffsets[kAlertRegularNumOffsets] = {
     NSString *trimmedTitle = [_title.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     _saveButton.enabled = ![trimmedTitle isEqualToString:@""];
     
-    NSDate * d = [chrono parseDateWithText:_natural.stringValue refDate: initialStart];
-    if (d != nil) {
-        _startDate.dateValue = d;
-        [self startDateChanged:nil];
+    simpleResult * r = [chrono parseSimpleWithText:_natural.stringValue refDate: initialStart];
+    if (r != nil && r.start != nil) {
+        _startDate.dateValue = r.start;
+        if (r.end != nil) {
+            _endDate.dateValue = r.end;
+        } else {
+            [self startDateChanged:nil];
+        }
     }
     
 #ifdef DEBUG
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"yyyy-MM-dd 'at' HH:mm";
-    NSString *dateString = [dateFormatter stringFromDate:d];
-    NSLog(@"%@",dateString);
+    NSLog(@"%@",[dateFormatter stringFromDate:r.start]);
+    NSLog(@"%@",[dateFormatter stringFromDate:r.end]);
 #endif
 }
 
@@ -365,9 +369,12 @@ const NSTimeInterval kAlertRegularRelativeOffsets[kAlertRegularNumOffsets] = {
     // Make sure endDate is never before startDate.
     // Make sure repeatEndDate is never before endDate.
     // Default endDate is one hour after startDate.
-    _endDate.minDate    = _startDate.dateValue;
-    _repEndDate.minDate = _startDate.dateValue;
-    _endDate.dateValue = [self.cal dateByAddingUnit:NSCalendarUnitHour value:1 toDate:_startDate.dateValue options:0];
+
+        _endDate.minDate    = _startDate.dateValue;
+        _repEndDate.minDate = _startDate.dateValue;
+    if (_startDate.dateValue >= _endDate.dateValue)
+            _endDate.dateValue = [self.cal dateByAddingUnit:NSCalendarUnitHour value:1 toDate:_startDate.dateValue options:0];
+    
 }
 
 - (void)repPopupChanged:(id)sender
