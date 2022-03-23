@@ -12,9 +12,8 @@
 #import "ViewController.h"
 #import "Themer.h"
 #import "Sizer.h"
-#import "MASShortcut/MASShortcutBinder.h"
-#import "MASShortcut/MASShortcutMonitor.h"
 #import "MoUtils.h"
+#import "MASShortcut/Shortcut.h"
 
 @implementation AppDelegate
 {
@@ -79,7 +78,11 @@
     // the system's appearance.
     [self themeFixup];
 
+    // 0.13.2 uses an NSDictionary instead of NSData to store the shortcut.
+    [self shortcutFixup];
+
     // Register keyboard shortcut.
+    [[MASShortcutBinder sharedBinder] setBindingOptions:@{NSValueTransformerNameBindingOption: MASDictionaryTransformerName}];
     [[MASShortcutBinder sharedBinder] bindShortcutWithDefaultsKey:kKeyboardShortcut toAction:^{
          [(ViewController *)self->_wc.contentViewController keyboardShortcutActivated];
      }];
@@ -181,6 +184,22 @@
 - (void)themeFixup
 {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"ThemeIndex"];
+}
+
+// 0.13.2 uses an NSDictionary instead of NSData to store the shortcut.
+// Apple deprecated NSKeyedUnarchiveFromDataTransformer so now we use
+// MASDictionaryTransformer instead. This conversion also has the nice
+// effect of making the stored value human-readable.
+- (void)shortcutFixup
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *data = [defaults dataForKey:@"KeyboardShortcut"];
+    [defaults removeObjectForKey:@"KeyboardShortcut"];
+    if (!data) return;
+    MASShortcut *shortcut = [NSKeyedUnarchiver unarchivedObjectOfClass:[MASShortcut class] fromData:data error:NULL];
+    if (!shortcut) return;
+    MASDictionaryTransformer *transformer = [MASDictionaryTransformer new];
+    [defaults setObject:[transformer reverseTransformedValue:shortcut] forKey:kKeyboardShortcut];
 }
 
 @end
